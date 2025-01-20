@@ -1,0 +1,10 @@
+appName: emailservice
+containerPort: 8080
+imageName: us-central1-docker.pkg.dev/google-samples/microservices-demo/emailservice
+imageVersion: v0.10.1
+containerEnv:
+  - envName: PORT
+    envvalue: "8080" #container port
+
+
+servicePort: 5000

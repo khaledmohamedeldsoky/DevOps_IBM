@@ -1,0 +1,15 @@
+---
+- hosts: master
+  roles:
+   - docker 
+   - k9s
+   - helm
+   - nginx
+
+
+- hosts: node
+  roles:
+   - docker 
+   - k9s
+   - nginx
+   

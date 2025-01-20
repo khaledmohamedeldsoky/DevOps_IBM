@@ -1,0 +1,10 @@
+appName: currencyservice
+containerPort: 7000
+imageName: us-central1-docker.pkg.dev/google-samples/microservices-demo/currencyservice
+imageVersion: v0.10.1
+containerEnv:
+  - envName: PORT
+    envValue: "7000"
+  - envName: DISABLE_PROFILER
+    envValue: "1"
+servicePort: 7000

@@ -1,0 +1,27 @@
+appName: checkoutservice
+containerPort: 5050
+imageName: us-central1-docker.pkg.dev/google-samples/microservices-demo/checkoutservice
+imageVersion: v0.10.1
+containerEnv:
+  - envName: PORT
+    envValue: "5050"
+    
+  - envName: PRODUCT_CATALOG_SERVICE_ADDR
+    envValue: "productcatalogservice:3550"
+
+  - envName: SHIPPING_SERVICE_ADDR
+    envValue: "shippingservice:50052"
+
+  - envName: EMAIL_SERVICE_ADDR
+    envValue: "emailservice:5000"
+
+  - envName: PAYMENT_SERVICE_ADDR
+    envValue: "paymentservice:50051"
+
+  - envName: CURRENCY_SERVICE_ADDR
+    envValue: "currencyservice:7000"
+
+  - envName: CART_SERVICE_ADDR
+    envValue: "cartservice:7070"
+
+servicePort: 5050

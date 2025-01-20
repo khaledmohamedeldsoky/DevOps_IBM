@@ -1,0 +1,7 @@
+[master]
+bastion
+
+[node]
+privateinstance1
+privateinstance2
+

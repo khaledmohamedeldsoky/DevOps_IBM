@@ -1,0 +1,35 @@
+appName: frontendservice
+containerPort: 8080
+imageName: us-central1-docker.pkg.dev/google-samples/microservices-demo/frontend
+imageVersion: v0.10.1
+containerEnv:
+  - envName: PORT
+    envValue: "8080"
+
+  - envName: PRODUCT_CATALOG_SERVICE_ADDR
+    envValue: "productcatalogservice:3550"
+
+  - envName: CURRENCY_SERVICE_ADDR
+    envValue: "currencyservice:7000"
+
+  - envName: CART_SERVICE_ADDR
+    envValue: "cartservice:7070"
+
+  - envName: RECOMMENDATION_SERVICE_ADDR
+    envValue: "recommendationservice:8080"
+
+  - envName: SHIPPING_SERVICE_ADDR
+    envValue: "shippingservice:50052"
+
+  - envName: CHECKOUT_SERVICE_ADDR
+    envValue: "checkoutservice:5050"
+    
+  - envName: AD_SERVICE_ADDR
+    envValue: "adservice:9555"
+  
+  - envName: SHOPPING_ASSISTANT_SERVICE_ADDR
+    envValue: "shoppingassistantservice:8000"
+
+
+serviceType: NodePort
+servicePort: 80
