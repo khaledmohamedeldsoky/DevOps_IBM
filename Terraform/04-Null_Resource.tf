@@ -9,11 +9,3 @@ resource "null_resource" "bash_script" {
   depends_on = [module.compute]
 }
 
-resource "null_resource" "delay" {
-  provisioner "local-exec" {
-    command = "sleep 60"
-  }
-  depends_on = [
-    module.network,
-  ]
-}

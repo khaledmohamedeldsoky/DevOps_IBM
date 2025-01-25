@@ -63,8 +63,8 @@
     daemon_reload: true
     
 
-- name: Enable containerd
-  ansible.builtin.service:
-    name: containerd
-    enabled: yes
-    state: started
+# - name: Enable containerd
+#   ansible.builtin.service:
+#     name: containerd
+#     enabled: yes
+#     state: started

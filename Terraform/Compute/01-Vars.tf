@@ -1,7 +1,6 @@
 variable "instance" {
 
   type = map(object({
-
     instance_vpc_id             = string
     instance_profile            = string
     instance_zone               = string
@@ -10,8 +9,8 @@ variable "instance" {
     instance_keys               = string
     instance_subnet_id          = string
     instance_security_groups_id = string
-    
   }))
+  
 }
 
 

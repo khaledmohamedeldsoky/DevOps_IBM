@@ -1,4 +1,3 @@
-
 terraform {
   required_providers {
     ibm = {
@@ -8,8 +7,7 @@ terraform {
   }
 }
 
-# Configure the IBM Provider
 provider "ibm" {
-  region           = var.region
   # ibmcloud_api_key = var.ibmcloud_api_key
+  region           = var.region
 }

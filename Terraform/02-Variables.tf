@@ -1,15 +1,17 @@
 # ----------- All ----------- #
-
-# ----------- Network ----------- #
 # variable "ibmcloud_api_key" {}
+# ----------- Network ----------- #
 
-# variable "zone_eu_de" {}
 # variable "zone_eu_gb" {}
-variable "region_eu_de" {}
-variable "zone_eu_de_2" {}
+# variable "zone_eu_gb" {}
+variable "region_eu_gb" {}
+variable "zone_eu_gb_2" {}
+variable "zone_eu_gb_3" {}
+
 variable "cider_block_192_168_1" {}
 variable "cider_block_192_168_2" {}
 variable "cider_block_192_168_3" {}
+variable "cider_block_192_168_4" {}
 
 # ----------- Security ----------- #
 variable "direction_inbound" {}

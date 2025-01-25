@@ -1,18 +1,17 @@
 # ----------- All ----------- #
-# -var="ibmcloud_api_key=$IC_API_KEY"
+# ibmcloud_api_key="QQx5AEEV0EmG40zHX3zzYLpqIPS6pUzAqZtb0S5pg1ry"
 # ----------- Network ----------- #
-# region_eu_gb    = "eu-gb"
-# zone_us_south_1 = "us-south-1"
-# zone_eu_gb_2    = "eu-gb-2"
-region_eu_de = "eu-de"
-zone_eu_de_2 = "eu-de-2"
+# eu_gb = London
+# eu_de = Frankfurt
+# us_south = Dallas
 
-
-
+region_eu_gb = "eu-gb"
+zone_eu_gb_2 = "eu-gb-2"
+zone_eu_gb_3 = "eu-gb-3"
 cider_block_192_168_1 = "192.168.1.0/24"
 cider_block_192_168_2 = "192.168.2.0/24"
 cider_block_192_168_3 = "192.168.3.0/24"
-
+cider_block_192_168_4 = "192.168.4.0/24"
 # ----------- Security ----------- #
 ssh_key_master_path = "./ssh_public_key/master.pub"
 ssh_key_mohsen_path = "./ssh_public_key/mohsen.pub"

@@ -1,4 +1,4 @@
-appName: recommendationservice
+/etc/kubernetes/admin.confappName: recommendationservice
 containerPort: 8080
 imageName: us-central1-docker.pkg.dev/google-samples/microservices-demo/recommendationservice
 imageVersion: v0.10.1

@@ -13,4 +13,5 @@ resource "ibm_is_subnet" "subnet" {
   depends_on = [
     ibm_is_vpc_address_prefix.khaled
   ]
+  
 }
