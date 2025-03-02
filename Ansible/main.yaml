@@ -2,14 +2,14 @@
 - hosts: master
   roles:
    - docker 
-   - k9s
+   - kubeadm
    - helm
    - nginx
-
+   - Cluster
 
 - hosts: node
   roles:
    - docker 
-   - k9s
+   - kubeadm
    - nginx
    

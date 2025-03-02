@@ -38,5 +38,5 @@ ssh_type_rsa = "rsa"
 
 
 # ----------- Compute ----------- #
-profile_cpu2_ram8  = "bx2-2x8"
-profile_cpu8_ram32 = "bx2-8x32"
+profile_cpu2_ram8  = "cx2-2x4"
+profile_cpu8_ram32 = "bx2-2x8"

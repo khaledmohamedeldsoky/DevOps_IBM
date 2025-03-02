@@ -3,6 +3,7 @@ module "network" {
   source              = "./Network"
   region              = var.region_eu_gb
   zone                = var.zone_eu_gb_2
+
   resource_group_name = "khaled-eldsoky"
   vpc_id              = module.network.vpc["vpc-khaled"].id
 
@@ -12,26 +13,54 @@ module "network" {
     }
   }
 
+  GW = {
+    "gw-1" ={
+      zone = var.zone_eu_gb_2
+    }
+    "gw-2" ={
+      zone = var.zone_eu_gb_3
+    }
+  }
+
+  address_prefix = {
+    "192.168.1" = {
+      name = "prefix1-192-168-1"
+      cidr = var.cider_block_192_168_1
+      zone = var.zone_eu_gb_2
+    }
+
+    "192.168.2" = {
+      name = "prefix1-192-168-2"
+      cidr = var.cider_block_192_168_2
+      zone = var.zone_eu_gb_2
+    }
+
+    "192.168.3" = {
+      name = "prefix2-192-168-3"
+      cidr = var.cider_block_192_168_3
+      zone = var.zone_eu_gb_3
+    }
+  }
+
   subnet = {
     "public-subnet-1" = {
       subnet_zone        = var.zone_eu_gb_2
       subent_vpc_id      = module.network.vpc["vpc-khaled"].id
       subnet_cider_block = var.cider_block_192_168_1
-      public_gateway     = true
     }
 
     "private-subnet-1" = {
       subnet_zone        = var.zone_eu_gb_2
       subent_vpc_id      = module.network.vpc["vpc-khaled"].id
       subnet_cider_block = var.cider_block_192_168_2
-      public_gateway     = false
+      public_gateway     = module.network.GW_id["gw-1"].id
     }
 
     "private-subnet-2" = {
-      subnet_zone        = var.zone_eu_gb_2
+      subnet_zone        = var.zone_eu_gb_3
       subent_vpc_id      = module.network.vpc["vpc-khaled"].id
       subnet_cider_block = var.cider_block_192_168_3
-      public_gateway     = false
+      public_gateway     = module.network.GW_id["gw-2"].id
     }
   }
 
@@ -50,8 +79,8 @@ module "security" {
   # ibmcloud_api_key = var.ibmcloud_api_key
   source = "./Security"
   region = var.region_eu_gb
-  SG = {
 
+  SG = {
     "master" = {
       vpc_id = module.network.vpc["vpc-khaled"].id
     }
@@ -59,7 +88,6 @@ module "security" {
     "node" = {
       vpc_id = module.network.vpc["vpc-khaled"].id
     }
-
   }
 
   SGR_tcp = {
@@ -156,7 +184,7 @@ module "compute" {
       instance_vpc_id             = module.network.vpc["vpc-khaled"].id
       instance_profile            = var.profile_cpu2_ram8
       image                       = data.ibm_is_image.image_ubuntu.id
-      instance_zone               = var.zone_eu_gb_2
+      instance_zone               = var.zone_eu_gb_3
       instance_resource_group     = module.network.resource_group.id
       instance_keys               = module.security.ssh_key["node"].id
       instance_subnet_id          = module.network.subnet["private-subnet-2"].id
@@ -165,37 +193,37 @@ module "compute" {
   }
 }
 
-module "load_balancer" {
-  source = "./Load_balancer"
-  lb_id  = module.load_balancer.lb_id
-  region = var.region_eu_gb
-  load_balancer = {
-    name        = "public-lb"
-    subents_ids = [module.network.subnet["private-subnet-1"].id, module.network.subnet["private-subnet-2"].id]
-    type        = "public"
-    # route_mode  = true
-  }
+# module "load_balancer" {
+#   source = "./Load_balancer"
+#   lb_id  = module.load_balancer.lb_id
+#   region = var.region_eu_gb
+#   load_balancer = {
+#     name        = "public-lb"
+#     subents_ids = [module.network.subnet["private-subnet-1"].id, module.network.subnet["private-subnet-2"].id]
+#     type        = "public"
+#     # route_mode  = true
+#   }
 
-  lb_listener = {
-    port     = 80
-    protocol = "http"
-  }
+#   lb_listener = {
+#     port     = 80
+#     protocol = "http"
+#   }
 
-  lb_pool = {
-    name = "pool"
-  }
+#   lb_pool = {
+#     name = "pool"
+#   }
 
-  lb_pool_member = {
-    member-1 = {
-    pool_id        = module.load_balancer.pool_id
-    port           = 31999
-    target_address = local.private_ip_node_1
-    }
+#   lb_pool_member = {
+#     member-1 = {
+#     pool_id        = module.load_balancer.pool_id
+#     port           = 31999
+#     target_address = local.private_ip_node_1
+#     }
 
-    member-2 = {
-    pool_id        = module.load_balancer.pool_id
-    port           = 31999
-    target_address = local.private_ip_node_2
-    }
-  }
-}
+#     member-2 = {
+#     pool_id        = module.load_balancer.pool_id
+#     port           = 31999
+#     target_address = local.private_ip_node_2
+#     }
+#   }
+# }

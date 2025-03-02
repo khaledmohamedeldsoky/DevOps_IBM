@@ -9,7 +9,8 @@ output "subnet" {
   value = { for subnets in ibm_is_subnet.subnet : subnets.name => {
     id   = subnets.id
     name = subnets.name
-  } }
+    } 
+  }
 
 }
 
@@ -23,4 +24,12 @@ output "F_ip" {
 
 output "routing_table" {
   value = ibm_is_vpc_routing_table.khaled.routing_table
+}
+
+output "GW_id" {
+    value = { for GWs in ibm_is_public_gateway.gateway : GWs.name => {
+    id   = GWs.id
+    name = GWs.name
+    } 
+  }
 }

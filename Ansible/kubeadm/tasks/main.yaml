@@ -40,6 +40,38 @@
     name: kubelet
     enabled: yes
 
+# ------- Kube network 
+- name: Enable IPv4 packet forwarding
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    sysctl_file: /etc/sysctl.d/k8s.conf
+    state: present
+    reload: true
+
+- name: Generate default containerd config
+  command: sudo containerd config default
+  register: containerd_config
+
+- name: Write containerd config to /etc/containerd/config.toml
+  copy:
+    content: "{{ containerd_config.stdout }}"
+    dest: /etc/containerd/config.toml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Update SystemdCgroup to true in containerd config
+  lineinfile:
+    path: /etc/containerd/config.toml
+    regexp: '^\s*SystemdCgroup\s*=\s*false'
+    line: '            SystemdCgroup = true'
+    insertafter: '\[plugins\."io\.containerd\.grpc\.v1\.cri"\.containerd\.runtimes\.runc\.options\]'
+
+- name: restart containerd
+  ansible.builtin.service:
+    name: containerd
+    state: restarted
 # ----------------------- Auto-Complete
 
 - name: Auto Complete kube
@@ -57,14 +89,10 @@
   args: 
     executable: /bin/bash
 
-# ----------------------- Enable containerd
+# ----------------------- reload Daemon
 - name: reload Daemon
   ansible.builtin.systemd_service:
     daemon_reload: true
     
 
-# - name: Enable containerd
-#   ansible.builtin.service:
-#     name: containerd
-#     enabled: yes
-#     state: started
+
